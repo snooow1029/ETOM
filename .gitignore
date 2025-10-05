@@ -158,3 +158,6 @@ cython_debug/
 # Benchmark-specific ignores
 # Evaluation results (generated data)
 eval_result/
+
+# MCP Registry Embeddings
+mcp_registry_w_embedding.json
