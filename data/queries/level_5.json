@@ -1,0 +1,548 @@
+[
+  {
+    "query_id": 1,
+    "query": "Can you pause the music playing on my home theater system?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 2,
+    "query": "Can you turn off the coffee maker in the kitchen?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 3,
+    "query": "Can you pause the TV for me?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 4,
+    "query": "Can you recommend a music streaming platform that has a vast collection of jazz albums from the 1950s and allows me to create custom playlists?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 5,
+    "query": "Can you play my favorite song from the new Taylor Swift album on Spotify?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 6,
+    "query": "Can you create a playlist for my workout that matches my running pace and mood?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 7,
+    "query": "Can you play the new music video by Taylor Swift on your platform?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 8,
+    "query": "Can you help me find a way to stream the Olympics on your platform?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 9,
+    "query": "Can you help me find a way to stream the latest sports game on your platform?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 10,
+    "query": "Can you come up with a recipe for a vegan, gluten-free, and dairy-free dessert that uses only ingredients available at a local farmer's market?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 11,
+    "query": "Can you pick up some fresh produce and meat from the farmer's market for me this weekend?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 12,
+    "query": "How often should I bathe my rabbit, and what products are safe to use on its fur?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 13,
+    "query": "What are the signs of a urinary tract infection in cats, and what should I do if I suspect my cat has one?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 14,
+    "query": "What are some natural remedies for soothing my cat's anxiety during fireworks displays?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 15,
+    "query": "What are the steps to replace the air conditioning filter in my living room?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 16,
+    "query": "I need help finding the right type of sealant to fix a crack in my bathroom tile. Can you recommend some options?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 17,
+    "query": "How do I safely remove a stubborn sticker residue from my kitchen cabinets?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 18,
+    "query": "What's the best way to replace the drywall in my living room after a recent water damage incident?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 19,
+    "query": "What's the process for repairing a cracked foundation wall in my basement?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 20,
+    "query": "How do I adjust the cooking time for a roast chicken if I want to serve it with a side of mashed potatoes?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 21,
+    "query": "How do I deep clean the oven and get rid of the tough stains and grime?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 22,
+    "query": "Can you pick up my dry cleaning from the store downtown and deliver it to my office?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 23,
+    "query": "Would you be able to go to the bank and deposit this check for me?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 24,
+    "query": "Can you go to the pet store and buy a bag of dog food for my pup?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 25,
+    "query": "Would you be able to grab a birthday gift for my sister from the mall and then swing by the post office to send a package to my cousin?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 26,
+    "query": "Can you help me renew my expired passport, and what documents do I need to provide for the application?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 27,
+    "query": "Can you help me renew my passport for an upcoming trip to Europe?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 28,
+    "query": "I'm a digital nomad and I need to purchase travel insurance that covers my laptop and other work equipment in case it gets lost or stolen while I'm traveling. Can you suggest some policies that offer this type of coverage?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 29,
+    "query": "What's the best way to get a refund for my movie ticket since I missed the show due to traffic?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 30,
+    "query": "Could you please provide a brief overview of the key findings in the recent Harvard Business Review article on AI ethics?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 31,
+    "query": "I'd like you to read me an excerpt from the introduction of the article \"The Future of Work\" by McKinsey, can you do that?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 32,
+    "query": "Can you summarize the latest developments in the ongoing trade war between the US and China?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 33,
+    "query": "Can you summarize the latest blog post on \"The Verge\" about the new iPhone release?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 34,
+    "query": "Can you recommend a music streaming service that offers a free trial and has a vast collection of indie music?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 35,
+    "query": "What's the emotional resonance of the guitar solo in the opening track of Pink Floyd's \"The Dark Side of the Moon\"?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 36,
+    "query": "Can you help me choose a new pair of wireless headphones that will be compatible with my iPhone and have good noise cancellation and sound quality?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 37,
+    "query": "What's the best gaming laptop for a college student on a budget of $800 that can handle 4K resolution and has a minimum of 16 hours of battery life?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 38,
+    "query": "Can you recommend a pair of wireless earbuds with long battery life and good sound quality for an avid music listener?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 39,
+    "query": "I have a gift card that's almost expired, can you tell me how to check the balance and extend the expiration date?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 40,
+    "query": "I need to obtain a certification in sustainable agriculture from the National Association of State Departments of Agriculture (NASDA), can you guide me through the process and requirements?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 41,
+    "query": "What are the specific steps I need to take to complete the mandatory annual anti-money laundering training for our finance team?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 42,
+    "query": "Can you pause the music playing on my smart speaker?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 43,
+    "query": "Can you play my favorite playlist from Spotify while I'm studying for my exam?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 44,
+    "query": "Play the latest album from Taylor Swift on Spotify.",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 45,
+    "query": "Can you stream the concert of Ed Sheeran from last year on Apple Music?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 46,
+    "query": "Can you stream the latest episode of my favorite TV show, Stranger Things, on Hulu?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 47,
+    "query": "I'm planning a trip to Europe and need to rent a car for 5 days in Paris. Can you find me a suitable vehicle and book it?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 48,
+    "query": "Can you help me figure out why my cat is vomiting after eating dry food, and what kind of wet food I should switch to?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 49,
+    "query": "Can you help me brush my cat's teeth every morning?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 50,
+    "query": "What's the best way to remove old wallpaper from my living room without damaging the drywall?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 51,
+    "query": "How can I effectively remove stubborn stains on my carpet, and what cleaning products would you recommend for the job?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 52,
+    "query": "Can you give me a step-by-step guide on how to deep clean my oven without using harsh chemicals?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 53,
+    "query": "How do I get rid of the stubborn stain on my living room carpet?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 54,
+    "query": "How do I properly wash and dry my delicate lingerie to prevent shrinkage?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 55,
+    "query": "How do I remove stubborn stains from my carpet without using a steam cleaner?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 56,
+    "query": "I need to return this faulty toaster to the store, can you go to the electronics store and exchange it for a new one?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 57,
+    "query": "Can you help me renew my US passport and get a visa for a trip to Japan?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 58,
+    "query": "Can you book tickets for the new Marvel movie premiere tonight at 8pm at the AMC theater in downtown LA?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 59,
+    "query": "How do I add a song to a playlist on Apple Music that I'm not following?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 60,
+    "query": "Can you play the entire discography of my favorite band, Foo Fighters?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 61,
+    "query": "Can you please correct the punctuation in this sentence: \"Hello, I'm going to the store, because I need to buy some milk, but I'm not sure what time they close.\"",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 62,
+    "query": "What's the perfect playlist to listen to while working on a creative project, considering I'm in the mood for something upbeat and energetic?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 63,
+    "query": "Can you suggest a song that would be a great fit for a wedding reception, given the couple's love for classic rock and country music?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 64,
+    "query": "Can you recommend a gaming laptop that can run demanding games at high graphics settings and has a long-lasting battery life?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 65,
+    "query": "Can you recognize the handwritten address on this receipt and read it out to me?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 66,
+    "query": "What are the differences between the US and Canadian labor laws regarding employee benefits and leave policies?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 67,
+    "query": "How do I get certified in Six Sigma black belt from the American Society for Quality?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 68,
+    "query": "Can you adjust the thermostat in my bedroom to 68 degrees?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 69,
+    "query": "How do I stream the new album from my favorite indie band on Spotify without having to create a new account?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 70,
+    "query": "Can you help me watch a live football match between Real Madrid and Barcelona tonight?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 71,
+    "query": "How do I conjugate the verb \"être\" in the imperfect tense in Spanish?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 72,
+    "query": "What are the signs of a flea infestation in my cat and how do I get rid of them?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 73,
+    "query": "How do I know if my dog is overweight and what can I do to help them lose weight?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 74,
+    "query": "How do I fix a leaky faucet in my kitchen without calling a plumber?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 75,
+    "query": "What's the best way to remove old tile adhesive from my bathroom walls without damaging the surrounding surfaces?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 76,
+    "query": "How do I properly clean and maintain my air conditioning unit to ensure it runs efficiently during the summer?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 77,
+    "query": "What are the steps to safely disconnect and reconnect my home's main water supply line for a renovation project?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 78,
+    "query": "Can you provide instructions on how to properly caulk and seal gaps around windows and doors to prevent air leaks?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 79,
+    "query": "Can you recommend a specific type of drip irrigation system that would work well for my succulent garden, considering the soil type and climate?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 80,
+    "query": "How do I deep clean my oven to remove tough stains and food residue without damaging the surface?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 81,
+    "query": "Can you stop by the bank and deposit a check for me and then mail a letter to my grandmother?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 82,
+    "query": "Can you pick up my dry cleaning and drop it off at my house?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 83,
+    "query": "How do I tie a ribbon around a box to make it look like a fancy present, without making it look too messy?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 84,
+    "query": "Can you summarize the latest developments in the ongoing conflict between Ukraine and Russia for me?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 85,
+    "query": "I want to stay updated on the latest developments in the SpaceX Starship program. Can you give me a quick rundown?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 86,
+    "query": "Could you please proofread this paragraph and add/remove commas to make it flow better: \"I love to read books, and watching movies, and sometimes I even do both at the same time\"",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 87,
+    "query": "I'm looking for a pair of wireless earbuds that have a unique feature, such as noise-cancellation or water-resistance, and can you suggest some options that fit my budget of $100?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 88,
+    "query": "What are the specific regulations and requirements for obtaining a work visa for Canada, and how do I go about applying for one?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 89,
+    "query": "How do I comply with the Indian Companies Act, 2013, when registering a private limited company in India?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 90,
+    "query": "What are the specific requirements for obtaining a driver's license in South Africa, and how do I go about applying for one as a foreigner?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  },
+  {
+    "query_id": 91,
+    "query": "How do I obtain a certified public accountant (CPA) certification in the United States?",
+    "ground_truth_tools_count": 0,
+    "ground_truth_tools": []
+  }
+]
