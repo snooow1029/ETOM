@@ -8,7 +8,10 @@ import numpy as np
 from tqdm import tqdm
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv()
 
 DATA_DIR = Path(__file__).resolve().parent
 REGISTRY_PATH = DATA_DIR / "mcp_registry.json"
@@ -16,12 +19,12 @@ REGISTRY_EMBED_PATH = DATA_DIR / "mcp_registry_w_embedding.json"
 
 
 def load_embedding_model():
-    """Load the Qwen3 embedding model (AutoTokenizer + AutoModel).
+    """Load the embedding model from environment variable (AutoTokenizer + AutoModel).
 
     Returns:
         tuple: (tokenizer, model, device)
     """
-    model_name = "Qwen/Qwen3-Embedding-0.6B"
+    model_name = os.getenv('EMBEDDING_MODEL_NAME', 'Qwen/Qwen3-Embedding-0.6B')
 
     print(f"Loading embedding model: {model_name}")
     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)

@@ -129,7 +129,7 @@ class LLMConfig:
                 self.azure_api_key = os.getenv('AZURE_OPENAI_API_KEY')
             if azure_api_version := os.getenv('AZURE_OPENAI_API_VERSION'):
                 self.azure_api_version = azure_api_version
-            if azure_deployment := os.getenv('LLM_MODEL_NAME'):
+            if azure_deployment := os.getenv('AZURE_OPENAI_DEPLOYMENT'):
                 self.azure_deployment_name = azure_deployment
         
         # Local OpenAI settings
@@ -157,7 +157,7 @@ class OrchestratorConfig:
     
     # Core settings shared by all orchestrators
     mcp_data_path: str = str(Path(__file__).resolve().parent.parent / "data" / "mcp_registry_w_embedding.json")
-    embedding_model_name: str = "Qwen/Qwen3-Embedding-0.6B"
+    embedding_model_name: Optional[str] = None  # Will be loaded from env in __post_init__
     
     # Orchestrator-specific configurations
     # This dictionary allows each orchestrator type to define its own parameters
@@ -166,6 +166,10 @@ class OrchestratorConfig:
     
     def __post_init__(self):
         """Process configuration and set defaults."""
+        # Load embedding model name from environment variable with fallback
+        if self.embedding_model_name is None:
+            self.embedding_model_name = os.getenv('EMBEDDING_MODEL_NAME', 'Qwen/Qwen3-Embedding-0.6B')
+        
         # Process each LLM config for environment variables
         for llm_config in self.llms.values():
             llm_config.__post_init__()

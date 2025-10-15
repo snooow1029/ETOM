@@ -43,6 +43,7 @@ class EvaluationConfig:
     mode: str  # 'full' or 'subset'
     batch_size: int = 10
     max_workers: int = 5
+    llm_provider: str = "local_openai"  # 'azure_openai' or 'local_openai'
     orchestrator_params: Optional[Dict[str, Any]] = None  # Custom orchestrator parameters
     
     def __post_init__(self):
@@ -80,15 +81,17 @@ class OrchestratorFactory:
     @staticmethod
     def create(orchestrator_type: str, config: EvaluationConfig):
         """Create orchestrator instance based on type."""
+        llm_type = config.llm_provider
+        
         if orchestrator_type.upper() == "TS":
             orch_config = OrchestratorConfig.create(
                 llms={
-                    "router": LLMConfig(name="router", llm_type="local_openai", temperature=0),
-                    "decomposer": LLMConfig(name="decomposer", llm_type="local_openai", temperature=0),
-                    "query_rewriter": LLMConfig(name="query_rewriter", llm_type="local_openai", temperature=0.3),
-                    "query_expander": LLMConfig(name="query_expander", llm_type="local_openai", temperature=0.5),
-                    "reranker": LLMConfig(name="reranker", llm_type="local_openai", temperature=0),
-                    "conversational": LLMConfig(name="conversational", llm_type="local_openai", temperature=0.7)
+                    "router": LLMConfig(name="router", llm_type=llm_type, temperature=0),
+                    "decomposer": LLMConfig(name="decomposer", llm_type=llm_type, temperature=0),
+                    "query_rewriter": LLMConfig(name="query_rewriter", llm_type=llm_type, temperature=0.3),
+                    "query_expander": LLMConfig(name="query_expander", llm_type=llm_type, temperature=0.5),
+                    "reranker": LLMConfig(name="reranker", llm_type=llm_type, temperature=0),
+                    "conversational": LLMConfig(name="conversational", llm_type=llm_type, temperature=0.7)
                 },
                 orchestrator_params=config.orchestrator_params
             )
@@ -96,12 +99,12 @@ class OrchestratorFactory:
         elif orchestrator_type.upper() == "HB":
             orch_config = OrchestratorConfig.create(
                 llms={
-                    "router": LLMConfig(name="router", llm_type="local_openai", temperature=0),
-                    "decomposer": LLMConfig(name="decomposer", llm_type="local_openai", temperature=0),
-                    "query_rewriter": LLMConfig(name="query_rewriter", llm_type="local_openai", temperature=0.3),
-                    "query_expander": LLMConfig(name="query_expander", llm_type="local_openai", temperature=0.5),
-                    "reranker": LLMConfig(name="reranker", llm_type="local_openai", temperature=0),
-                    "conversational": LLMConfig(name="conversational", llm_type="local_openai", temperature=0.7)
+                    "router": LLMConfig(name="router", llm_type=llm_type, temperature=0),
+                    "decomposer": LLMConfig(name="decomposer", llm_type=llm_type, temperature=0),
+                    "query_rewriter": LLMConfig(name="query_rewriter", llm_type=llm_type, temperature=0.3),
+                    "query_expander": LLMConfig(name="query_expander", llm_type=llm_type, temperature=0.5),
+                    "reranker": LLMConfig(name="reranker", llm_type=llm_type, temperature=0),
+                    "conversational": LLMConfig(name="conversational", llm_type=llm_type, temperature=0.7)
                 },
                 orchestrator_params=config.orchestrator_params
             )
@@ -109,28 +112,19 @@ class OrchestratorFactory:
         elif orchestrator_type.upper() == "MCP0":
             orch_config = OrchestratorConfig.create(
                 llms={
-                    "router": LLMConfig(name="router", llm_type="local_openai", temperature=0),
-                    "retriever": LLMConfig(name="retriever", llm_type="local_openai", temperature=0),
-                    "conversational": LLMConfig(name="conversational", llm_type="local_openai", temperature=0.7),
-                    "decomposer": LLMConfig(name="decomposer", llm_type="local_openai", temperature=0)
+                    "router": LLMConfig(name="router", llm_type=llm_type, temperature=0),
+                    "retriever": LLMConfig(name="retriever", llm_type=llm_type, temperature=0),
+                    "conversational": LLMConfig(name="conversational", llm_type=llm_type, temperature=0.7),
+                    "decomposer": LLMConfig(name="decomposer", llm_type=llm_type, temperature=0)
                 },
                 orchestrator_params=config.orchestrator_params
             )
-            # orch_config = OrchestratorConfig.create(
-            #     llms={
-            #         "router": LLMConfig(name="router", llm_type="azure_openai", temperature=0),
-            #         "retriever": LLMConfig(name="retriever", llm_type="azure_openai", temperature=0),
-            #         "conversational": LLMConfig(name="conversational", llm_type="azure_openai", temperature=0.7),
-            #         "decomposer": LLMConfig(name="decomposer", llm_type="azure_openai", temperature=0)
-            #     },
-            #     orchestrator_params={}
-            # )
             return MCPZeroOrchestrator(config=orch_config)
         elif orchestrator_type.upper() == "REACT":
             orch_config = OrchestratorConfig.create(
                 llms={
-                    "router": LLMConfig(name="router", llm_type="local_openai", temperature=0),
-                    "conversational": LLMConfig(name="conversational", llm_type="local_openai", temperature=0.7),
+                    "router": LLMConfig(name="router", llm_type=llm_type, temperature=0),
+                    "conversational": LLMConfig(name="conversational", llm_type=llm_type, temperature=0.7),
                 },
                 orchestrator_params=config.orchestrator_params
             )
@@ -951,12 +945,14 @@ class FilePathManager:
         # optional model short token
         model_token = ''
         if model_name:
-            # sanitize model name and take first two tokens
+            # sanitize model name and take last part after slash
             token = model_name.split('/')[-1]
-            token = token.replace(' ', '_').replace('.', '_')
-            # shorten long tokens
-            if len(token) > 20:
-                token = token[:20]
+            # Replace special characters but keep dots and dashes
+            token = token.replace(' ', '_')
+            # For OpenAI models like "gpt-4.1", keep as is
+            # For HuggingFace models, shorten if too long
+            if len(token) > 25:
+                token = token[:25]
             model_token = f"_{token}"
 
         suffix = '_'.join(parts)
@@ -1421,10 +1417,17 @@ def run_evaluation(config: EvaluationConfig):
     # Print model and port information from .env
     local_model = os.getenv('LOCAL_MODEL', 'Not set')
     local_url = os.getenv('LOCAL_URL', 'Not set')
+    azure_endpoint = os.getenv('AZURE_OPENAI_ENDPOINT', 'Not set')
+    embedding_model = os.getenv('EMBEDDING_MODEL_NAME', 'Qwen/Qwen3-Embedding-0.6B')
     
-    
-    print(f" Model Config - LOCAL_MODEL: {local_model}")
-    print(f" Server Config - LOCAL_URL: {local_url}")
+    print(f" LLM Provider: {config.llm_provider}")
+    if config.llm_provider == 'local_openai':
+        print(f" Model Config - LOCAL_MODEL: {local_model}")
+        print(f" Server Config - LOCAL_URL: {local_url}")
+    else:
+        print(f" Azure Endpoint: {azure_endpoint}")
+        print(f" Deployment: {os.getenv('AZURE_OPENAI_DEPLOYMENT', 'Not set')}")
+    print(f" Embedding Model: {embedding_model}")
     
     # Load queries
     try:
@@ -1438,7 +1441,14 @@ def run_evaluation(config: EvaluationConfig):
         return
     
     # Setup file paths (include orchestrator params and model name when available)
-    model_name = os.getenv('LOCAL_MODEL') or os.getenv('LLM_MODEL_NAME')
+    # Determine model name based on LLM provider
+    if config.llm_provider == 'azure_openai':
+        # For Azure, use AZURE_OPENAI_DEPLOYMENT
+        model_name = os.getenv('AZURE_OPENAI_DEPLOYMENT')
+    else:
+        # For local, use LOCAL_MODEL
+        model_name = os.getenv('LOCAL_MODEL')
+    
     if config.orchestrator_params:
         checkpoint_file = FilePathManager.get_checkpoint_file_with_params(
             config.level, config.orchestrator, config.orchestrator_params, model_name
@@ -1710,6 +1720,8 @@ Examples:
                        help='Evaluation mode (default: subset)')
     parser.add_argument('--batch_size', type=int, default=10, help='Batch size (default: 10)')
     parser.add_argument('--max_workers', type=int, default=5, help='Max workers (default: 5)')
+    parser.add_argument('--llm_provider', type=str, choices=['azure_openai', 'local_openai'], 
+                       default=None, help='LLM provider (azure_openai or local_openai). If not specified, will determine from env vars.')
     
     # Orchestrator parameters
     parser.add_argument('--tool_top_k', type=int, help='Tool top k for TS/HB/MCP0 orchestrator')
@@ -1903,6 +1915,21 @@ Examples:
         print(f"❌ Invalid orchestrator: {args.orchestrator}. Must be TS or HB or MCP0 or REACT.")
         return
     
+    # Determine LLM provider from args or environment
+    llm_provider = args.llm_provider
+    if llm_provider is None:
+        # Auto-detect from environment variables
+        if os.getenv('AZURE_OPENAI_ENDPOINT') and os.getenv('AZURE_OPENAI_API_KEY'):
+            # If Azure credentials are set and LOCAL_URL is not set, use Azure
+            if not os.getenv('LOCAL_URL'):
+                llm_provider = 'azure_openai'
+            else:
+                # Both are set, default to local
+                llm_provider = 'local_openai'
+        else:
+            # Default to local if no Azure credentials
+            llm_provider = 'local_openai'
+    
     # Create configuration
     config = EvaluationConfig(
         level=args.level,
@@ -1910,6 +1937,7 @@ Examples:
         mode=args.mode,
         batch_size=args.batch_size,
         max_workers=args.max_workers,
+        llm_provider=llm_provider,
         orchestrator_params=orchestrator_params
     )
     
@@ -1917,6 +1945,7 @@ Examples:
     print(f"📋 Configuration:")
     print(f"   Level: {config.level}")
     print(f"   Orchestrator: {config.orchestrator}")
+    print(f"   LLM Provider: {config.llm_provider}")
     print(f"   Mode: {config.mode}")
     print(f"   Batch size: {config.batch_size}")
     print(f"   Max workers: {config.max_workers}")
