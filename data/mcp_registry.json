@@ -1,6 +1,6 @@
 {
-  "total_servers": 496,
-  "total_tools": 2397,
+  "total_servers": 491,
+  "total_tools": 2375,
   "servers": [
     {
       "server_name": "heroku-mcp-server",
