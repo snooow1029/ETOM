@@ -1,19 +1,21 @@
-# MSC_Bench: Multi-Level Server-Tool Selection Benchmark
+# MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration
 
-A comprehensive evaluation framework for testing tool selection capabilities across multiple complexity levels, designed to assess the performance of various orchestrator implementations in multi-tool environments.
+A comprehensive benchmark framework for evaluating tool selection and orchestration capabilities across multiple complexity levels.
 
 ## Overview
 
-MSC_Bench provides a standardized platform for evaluating how well different orchestration systems can select and sequence tools to complete complex tasks. The benchmark supports five levels of complexity, from simple single-tool selection to complex multi-tool dependency graphs.
+MSC-Bench provides a standardized platform for both generating and evaluating how well different orchestration systems can select and sequence tools to complete complex tasks. The benchmark supports five levels of complexity, from simple single-tool selection to complex multi-tool dependency graphs with conditional logic.
 
 ## Key Features
 
+- **Multi-Level Dataset Generation**: Automated pipeline for generating benchmark queries at five complexity levels
 - **Multi-Level Evaluation**: Five distinct complexity levels (1-5) covering single tools, tool sets, tool sequences, and complex dependency graphs
 - **Multiple Orchestrator Support**: Evaluation framework for ToolShed, MCP-Zero, REACT, and Hybrid orchestrators
+- **Tool Equivalence Detection**: Automated discovery of functionally equivalent tools using embeddings and LLM verification
 - **Comprehensive Metrics**: Level-specific evaluation metrics including exact match, F1-score, precision, and recall
 - **Parallel Processing**: Configurable batch processing and multi-threading for efficient evaluation
-- **Checkpoint System**: Resume interrupted evaluations with automatic progress saving
-- **Extensible Architecture**: Easy addition of new orchestrators and evaluation levels
+- **Checkpoint System**: Resume interrupted evaluations and generation processes with automatic progress saving
+- **Extensible Architecture**: Easy addition of new orchestrators, evaluation levels, and generation strategies
 
 ## Project Structure
 
@@ -27,7 +29,20 @@ MSC_Bench/
 │   │   ├── level_4.json          # Complex tool graph queries
 │   │   └── level_5.json          # Advanced dependency queries
 │   ├── mcp_registry.json         # Tool registry without embeddings
-│   └── generate_embeddings.py    # Script to generate tool embeddings
+│   ├── generate_embeddings.py    # Script to generate tool embeddings
+│   └── generate_pseudo_output_schema.py  # Generate output schemas for tools
+├── src/                          # Data generation pipeline
+│   ├── lv1_lv2_generation.py     # Level 1 & 2 query generation
+│   ├── lv1_lv2_prompts.py        # Prompts for Level 1 & 2 generation
+│   ├── lv3_generation.py         # Level 3 query generation (tool sequences)
+│   ├── lv4_generation.py         # Level 4 query generation (tool graphs)
+│   ├── lv5_generation.py         # Level 5 query generation (advanced dependencies)
+│   ├── step_1_bottom_up.py       # Tool equivalence set discovery
+│   ├── step_2_generate_tasks.py  # Query generation for equivalence sets
+│   ├── step_3_top_down.py        # Top-down query refinement
+│   ├── tool_equivalence_sets.json  # Discovered equivalent tool sets
+│   ├── tool_sets_with_queries.json  # Tool sets with generated queries
+│   └── util.py                   # Utility functions for generation
 ├── orchestrator/                 # Orchestrator implementations
 │   ├── orchestrator_core.py      # Base orchestrator class
 │   ├── orchestrator_hybrid.py    # Hybrid orchestrator implementation
@@ -39,6 +54,8 @@ MSC_Bench/
 ├── eval/                         # Evaluation framework
 │   ├── eval.py                   # Generalized evaluation script
 │   ├── graph_evaluator.py        # Graph-based evaluation for complex levels
+│   ├── README_generalized_eval.md  # Evaluation framework documentation
+│   └── README_graph_evaluator.md   # Graph evaluator documentation
 ├── eval_result/                  # Evaluation results and checkpoints
 ├── requirements.txt              # Python dependencies
 ├── .env.example                  # example to setup backbone llm
@@ -49,7 +66,7 @@ MSC_Bench/
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/snooow1029/MSC_Bench.git
 cd MSC_Bench
 ```
 
@@ -63,6 +80,97 @@ pip install -r requirements.txt
 cp .env.example .env
 # Edit .env with your API keys and configurations
 ```
+
+4. Generate embeddings for tool registry (if needed):
+```bash
+cd data
+python generate_embeddings.py
+```
+
+## Dataset Generation Pipeline
+
+MSC-Bench includes a comprehensive pipeline for generating benchmark queries at different complexity levels:
+
+### Level 1 & 2: Single Tool and Tool Sets
+```bash
+cd src
+python lv1_lv2_generation.py
+```
+
+Generates:
+- **Level 1**: Platform-specific queries for individual tools
+- **Level 2**: Natural language queries that can be solved by multiple equivalent tools
+
+Features:
+- Platform identification and classification
+- Tool task type classification (final_goal vs middleware)
+- User-facing vs system-facing distinction
+- Automated query verification
+
+### Level 2 Alternative: Bottom-up Equivalence Discovery
+```bash
+cd src
+# Step 1: Discover functionally equivalent tools
+python step_1_bottom_up.py
+
+# Step 2: Generate queries for equivalence sets
+python step_2_generate_tasks.py
+
+# Step 3: Refine queries with top-down validation
+python step_3_top_down.py
+```
+
+This pipeline:
+1. Uses embedding similarity to find candidate equivalent tools
+2. Employs LLM verification for functional equivalence
+3. Generates diverse queries that can be solved by any tool in the equivalence set
+4. Validates queries with top-down RAG-based filtering
+
+### Level 3: Tool Sequences
+```bash
+cd src
+python lv3_generation.py
+```
+
+Generates tool chains with sequential dependencies:
+- Identifies tools that can form logical workflows
+- Validates sequential dependency relationships
+- Ensures meaningful data flow between tools
+- Verifies resource lifecycle (create → use → delete)
+
+### Level 4: Complex Tool Graphs with Equivalence Sets
+```bash
+cd src
+python lv4_generation.py
+```
+
+Generates complex tool graphs:
+- Combines multiple tool chains with shared dependencies
+- Incorporates tool equivalence sets from Level 2
+- Validates feasibility of multi-server workflows
+- Creates diverse, realistic user scenarios
+
+### Level 5: Advanced Dependencies with Conditional Logic
+```bash
+cd src
+python lv5_generation.py
+```
+
+Generates advanced dependency graphs:
+- Uses clustering to identify thematically related tools
+- Multi-agent debate system (proposer, red team, judge)
+- Conditional tool selection based on intermediate results
+- Complex branching workflows
+
+### Supporting Utilities
+
+**Generate Tool Output Schemas:**
+```bash
+cd data
+python generate_pseudo_output_schema.py
+```
+
+Infers output schemas for tools that lack explicit output definitions using LLM analysis.
 
 ## Evaluation Levels
 
@@ -85,42 +193,79 @@ cp .env.example .env
 - **Objective**: Handle complex tool graphs with equivalent tool sets
 - **Evaluation**: Graph F1-score with equivalence set matching
 - **Example**: Multi-step data processing with alternative tool paths
+- **Features**: Multiple servers, shared dependencies, tool alternatives
 
 ### Level 5: Advanced Dependencies
 - **Objective**: Complex dependency graphs with conditional tool selection
 - **Evaluation**: Advanced graph metrics with conditional logic validation
 - **Example**: Dynamic workflow with branching tool selection
+- **Features**: Conditional dependencies, thematic clustering, multi-agent generation
 
 ## Supported Orchestrators
 
 ### ToolShed (TS)
-Multi-LLM pipeline with specialized components:
-- Router: Initial query classification
-- Decomposer: Query decomposition
-- Query Rewriter: Query optimization
-- Query Expander: Query enhancement
-- Reranker: Tool ranking
-- Conversational: Final response generation
+Multi-LLM pipeline with specialized components for advanced query processing:
+- **Router**: Initial query classification and routing
+- **Decomposer**: Query decomposition into sub-tasks
+- **Query Rewriter**: Query optimization for better tool matching
+- **Query Expander**: Query enhancement with additional context
+- **Reranker**: Tool ranking based on relevance
+- **Conversational**: Final response generation
+
+Configuration: `server_top_k=3, tool_top_k=5, similarity_threshold=0`
 
 ### MCP-Zero (MCP0)
-Three-LLM architecture:
-- Router: Query routing
-- Retriever: Tool retrieval with embeddings
-- Conversational: Response generation
+Efficient three-LLM architecture with embedding-based retrieval:
+- **Router**: Query routing and classification
+- **Retriever**: Tool retrieval using semantic embeddings
+- **Conversational**: Response generation
 
-### REACT
-Reasoning and Acting approach:
+Two-stage filtering: server-level → tool-level retrieval
+
+### ReAct
+Reasoning and Acting approach with iterative tool selection:
 - Iterative reasoning with tool use
 - Dynamic tool selection based on intermediate results
+- Configurable number of reasoning attempts
 
-### Hybrid
-Combined approach:
-- Leverages strengths of multiple orchestrator types
-- Adaptive strategy selection
+### Hybrid (HB)
+Combined approach leveraging strengths of multiple orchestrator types:
+- Adaptive strategy selection based on query complexity
+- Combines ToolShed's multi-stage processing with MCP-Zero's efficiency
+- Dynamic parameter adjustment
 
 ## Usage
 
-### Quick Start
+### Dataset Generation
+
+Generate benchmark queries for specific levels:
+```bash
+# Generate Level 1 & 2 queries
+cd src
+python lv1_lv2_generation.py
+
+# Generate Level 3 queries (tool sequences)
+python lv3_generation.py
+
+# Generate Level 4 queries (complex graphs)
+python lv4_generation.py
+
+# Generate Level 5 queries (advanced dependencies)
+python lv5_generation.py
+```
+
+For Level 2 alternative pipeline (equivalence discovery):
+```bash
+cd src
+python step_1_bottom_up.py
+python step_2_generate_tasks.py
+python step_3_top_down.py
+```
+
+### Evaluation
+
+
+#### Quick Start
 
 Run evaluation with interactive mode:
 ```bash
@@ -128,7 +273,7 @@ cd eval
 python eval.py
 ```
 
-### Command Line Usage
+#### Command Line Usage
 
 ```bash
 # Single level evaluation
@@ -143,7 +288,7 @@ for level in 1 2 3 4 5; do
 done
 ```
 
-### Programmatic Usage
+#### Programmatic Usage
 
 ```python
 from eval.eval import run_evaluation, EvaluationConfig
@@ -185,15 +330,20 @@ results = run_evaluation(config)
   "query": "Task description",
   "ground_truth_tools_count": 2,
   "ground_truth_tools": [
-    {
-      "tool_id": "server::tool_name",
-      "server_name": "server",
-      "tool_name": "tool_name",
-      "description": "Tool description"
-    }
+    [
+      {
+        "tool_id": "server::tool_name",
+        "server_name": "server",
+        "tool_name": "tool_name",
+        "description": "Tool description",
+        "dependencies": [0]
+      }
+    ]
   ]
 }
 ```
+
+**Note:** For Level 2+, `ground_truth_tools` is a list of lists, where each inner list represents an equivalence function set (EFS) - any tool from that set is a valid answer.
 
 ### Result Format
 ```json
@@ -212,7 +362,29 @@ results = run_evaluation(config)
 
 ## Advanced Features
 
-### Checkpoint System
+### Dataset Generation Features
+
+#### Tool Equivalence Discovery
+- Embedding-based similarity search for candidate tools
+- LLM verification for functional equivalence
+- Proper transitivity handling in equivalence sets
+- Checkpoint-based resumability
+
+#### Multi-Agent Query Generation
+- Proposer agent for initial query creation
+- Red team agent for critical evaluation
+- Judge agent for final quality assessment
+- Iterative refinement process
+
+#### Query Validation
+- Automated verification of query-tool alignment
+- Platform specificity classification
+- Task type categorization
+- Sequential dependency validation
+
+### Evaluation Features
+
+#### Checkpoint System
 - Automatic progress saving every 5 batches
 - Resume interrupted evaluations
 - Emergency checkpoint on errors
@@ -225,10 +397,37 @@ results = run_evaluation(config)
 - Progress tracking with ETA
 
 ### Graph Evaluation
-- Global relative order validation
+- Global relative order validation (avoids cascade failures)
 - Fault-tolerant dependency checking
-- Equivalent function set support
-- Detailed debugging information
+- Equivalent function set (EFS) support
+- Detailed debugging information with violation reports
+
+## Data Format Specifications
+
+### Tool Registry Format
+```json
+{
+  "servers": [
+    {
+      "server_name": "example_server",
+      "server_description": "Server description",
+      "server_summary": "Brief summary",
+      "categories": ["category1", "category2"],
+      "tools": [
+        {
+          "tool_name": "example_tool",
+          "tool_description": "Tool description",
+          "input_schema": {},
+          "output_schema": {},
+          "tool_embedding": [0.1, 0.2, ...]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Query Format
 
 ## Extending the Framework
 
@@ -261,15 +460,25 @@ class Level6Strategy(EvaluationStrategy):
 
 2. Register strategy and update statistics functions
 
-## Configuration
+### Configuration
 
-### Environment Variables
+#### Environment Variables
+
+**For Evaluation:**
 - `OPENAI_API_KEY`: OpenAI API key
 - `AZURE_OPENAI_API_KEY`: Azure OpenAI API key
 - `AZURE_OPENAI_ENDPOINT`: Azure OpenAI endpoint
-- `LOCAL_LLM_BASE_URL`: Local LLM server URL
+- `AZURE_OPENAI_API_VERSION`: API version (e.g., "2024-02-15-preview")
+- `AZURE_OPENAI_DEPLOYMENT`: Deployment name (e.g., "gpt-4.1")
+- `LOCAL_URL`: Local LLM server URL (e.g., "http://localhost:8000/v1")
+- `LOCAL_API_KEY`: Local LLM API key
+- `LOCAL_MODEL`: Local model name
 
-### Orchestrator Parameters
+**For Data Generation:**
+- `EMBEDDING_MODEL_NAME`: Model for embeddings (default: "Qwen/Qwen3-Embedding-0.6B")
+- All evaluation environment variables (for LLM-based generation)
+
+#### Orchestrator Parameters
 - LLM configurations (temperature, model names)
 - Tool selection parameters (top-k, similarity thresholds)
 - Processing parameters (batch sizes, timeouts)
@@ -285,7 +494,14 @@ class Level6Strategy(EvaluationStrategy):
 
 ### Common Issues
 
-1. **Missing API Keys**: Ensure environment variables are properly set
+**Data Generation:**
+1. **Missing Embeddings**: Run `python data/generate_embeddings.py` first
+2. **LLM API Errors**: Check API keys and endpoint configurations in `.env`
+3. **Memory Issues**: Reduce batch sizes or use test mode flags
+4. **Checkpoint Corruption**: Delete checkpoint files (`.pkl`) to restart
+
+**Evaluation:**
+1. **Missing API Keys**: Ensure environment variables are properly set in `.env`
 2. **Memory Issues**: Reduce batch_size or max_workers
 3. **Import Errors**: Check Python path and package installation
 4. **Checkpoint Corruption**: Delete checkpoint files to start fresh
@@ -300,14 +516,14 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 ## Citation
 
-If you use MSC_Bench in your research, please cite:
+If you use MSC-Bench in your research, please cite:
 
 ```bibtex
-@article{msc_bench_2024,
-  title={MSC_Bench: A Multi-Level Tool Selection Benchmark},
-  author={Your Name},
+@article{msc_bench_2025,
+  title={MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration},
+  author={Jia-Kai Dong, I-Wei Huang, Chun-Tin Wu, YI-TIEN TSAI},
   journal={Conference/Journal Name},
-  year={2024}
+  year={2025}
 }
 ```
 
