@@ -1916,19 +1916,7 @@ Examples:
         return
     
     # Determine LLM provider from args or environment
-    llm_provider = args.llm_provider
-    if llm_provider is None:
-        # Auto-detect from environment variables
-        if os.getenv('AZURE_OPENAI_ENDPOINT') and os.getenv('AZURE_OPENAI_API_KEY'):
-            # If Azure credentials are set and LOCAL_URL is not set, use Azure
-            if not os.getenv('LOCAL_URL'):
-                llm_provider = 'azure_openai'
-            else:
-                # Both are set, default to local
-                llm_provider = 'local_openai'
-        else:
-            # Default to local if no Azure credentials
-            llm_provider = 'local_openai'
+    llm_provider = os.getenv('LLM_PROVIDER')
     
     # Create configuration
     config = EvaluationConfig(
