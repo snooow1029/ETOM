@@ -39,7 +39,7 @@ MSC_Bench/
 │   │   ├── level_2.json          # Tool set selection queries
 │   │   ├── level_3.json          # Tool sequence queries
 │   │   ├── level_4.json          # Complex tool graph queries
-│   │   └── level_5.json          # Advanced dependency queries
+│   │   └── level_5.json          # Infeasible task queries
 │   ├── mcp_registry.json         # Tool registry without embeddings
 │   ├── generate_embeddings.py    # Script to generate tool embeddings
 │   └── generate_pseudo_output_schema.py  # Generate output schemas for tools
@@ -48,7 +48,7 @@ MSC_Bench/
 │   ├── lv1_lv2_prompts.py        # Prompts for Level 1 & 2 generation
 │   ├── lv3_generation.py         # Level 3 query generation (tool sequences)
 │   ├── lv4_generation.py         # Level 4 query generation (tool graphs)
-│   ├── lv5_generation.py         # Level 5 query generation (advanced dependencies)
+│   ├── lv5_generation.py         # Level 5 query generation (infeasible tasks)
 │   ├── step_1_bottom_up.py       # Tool equivalence set discovery
 │   ├── step_2_generate_tasks.py  # Query generation for equivalence sets
 │   ├── step_3_top_down.py        # Top-down query refinement
@@ -162,17 +162,17 @@ Generates complex tool graphs:
 - Validates feasibility of multi-server workflows
 - Creates diverse, realistic user scenarios
 
-### Level 5: Advanced Dependencies with Conditional Logic
+### Level 5: Infeasible Task Generation
 ```bash
 cd src
 python lv5_generation.py
 ```
 
-Generates advanced dependency graphs:
-- Uses clustering to identify thematically related tools
-- Multi-agent debate system (proposer, red team, judge)
-- Conditional tool selection based on intermediate results
-- Complex branching workflows
+Generates queries that cannot be completed with available tools:
+- Creates realistic user requests for unavailable functionality
+- Tests orchestrator's ability to recognize task limitations
+- Prevents tool hallucination and inappropriate tool selection
+- Evaluates graceful failure handling and user communication
 
 ### Supporting Utilities
 
@@ -186,32 +186,35 @@ Infers output schemas for tools that lack explicit output definitions using LLM 
 
 ## Evaluation Levels
 
-### Level 1: Single Tool Selection
-- **Objective**: Select the correct single tool for a given query
+### Level 1: Direct Mapping
+- **Objective**: Direct, platform-specific tool selection with explicit requirements
 - **Evaluation**: Exact match between predicted and ground truth tool
-- **Example**: "Get weather information" → `weather_tool`
+- **Example**: "On Tripo AI, download Polyhaven asset with ID '12345'" → `Tripo MCP Server::download_polyhaven_asset`
+- **Features**: Clear platform identification, specific tool requirements
 
-### Level 2: Tool Set Selection
-- **Objective**: Select any tool from a set of equivalent tools
+### Level 2: Implicit Reasoning
+- **Objective**: Select appropriate tools from equivalent function sets through implicit reasoning
 - **Evaluation**: Binary success if any equivalent tool is selected
-- **Example**: "Search the web" → `google_search` or `bing_search`
+- **Example**: "Capture a screenshot" → `screenshot_tool_A` or `screenshot_tool_B` or `screenshot_tool_C`
+- **Features**: Tool equivalence sets, functional similarity, implicit requirements
 
-### Level 3: Tool Sequence
-- **Objective**: Select tools in the correct sequence
+### Level 3: Single-Server Multi-Step
+- **Objective**: Sequential tool execution within a single server environment
 - **Evaluation**: Sequence accuracy with dependency validation
-- **Example**: "Analyze code and generate report" → `analyze_tool` → `report_tool`
+- **Example**: "Get object info then check PolyHaven status" → `get_object_info` → `get_polyhaven_status`
+- **Features**: Sequential dependencies, single-server workflows, ordered execution
 
-### Level 4: Tool Graph with Equivalence
-- **Objective**: Handle complex tool graphs with equivalent tool sets
-- **Evaluation**: Graph F1-score with equivalence set matching
-- **Example**: Multi-step data processing with alternative tool paths
-- **Features**: Multiple servers, shared dependencies, tool alternatives
+### Level 4: Cross-Server Multi-Step
+- **Objective**: Complex workflows spanning multiple servers with tool dependencies
+- **Evaluation**: Graph F1-score with cross-server dependency validation
+- **Example**: "Check wallet balance on Ethereum, then send transaction if sufficient" → `EthersWallet::getBalance` → `CryptoWallet::sendTransaction`
+- **Features**: Cross-server coordination, complex dependencies, multi-server orchestration
 
-### Level 5: Advanced Dependencies
-- **Objective**: Complex dependency graphs with conditional tool selection
-- **Evaluation**: Advanced graph metrics with conditional logic validation
-- **Example**: Dynamic workflow with branching tool selection
-- **Features**: Conditional dependencies, thematic clustering, multi-agent generation
+### Level 5: Robustness
+- **Objective**: Identify tasks that cannot be completed with available tools (robustness against hallucination)
+- **Evaluation**: Correct identification of infeasible queries (empty tool path)
+- **Example**: "Can you pause the music playing on my home theater system?" → No available tools
+- **Features**: Tests orchestrator's ability to recognize limitations and avoid tool hallucination
 
 ## Supported Orchestrators
 
@@ -320,11 +323,11 @@ results = run_evaluation(config)
 
 ### Level-Specific Metrics
 
-- **Level 1**: Exact match accuracy
-- **Level 2**: Correct prediction rate
-- **Level 3**: Sequence accuracy with dependency validation
-- **Level 4**: Graph F1-score with equivalence set matching
-- **Level 5**: Advanced graph metrics with conditional validation
+- **Level 1 (Direct Mapping)**: Exact match accuracy
+- **Level 2 (Implicit Reasoning)**: Correct prediction rate (any equivalent tool accepted)
+- **Level 3 (Single-Server Multi-Step)**: Graph F1-score with intra-server dependency matching
+- **Level 4 (Cross-Server Multi-Step)**: Graph F1-score with inter-server dependency matching
+- **Level 5 (Robustness)**: Infeasibility detection accuracy (correct empty predictions)
 
 ### Common Metrics
 
