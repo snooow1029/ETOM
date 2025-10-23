@@ -519,11 +519,14 @@ logging.getLogger().setLevel(logging.DEBUG)
 If you use MSC-Bench in your research, please cite:
 
 ```bibtex
-@article{msc_bench_2025,
-  title={MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration},
-  author={Jia-Kai Dong, I-Wei Huang, Chun-Tin Wu, YI-TIEN TSAI},
-  journal={Conference/Journal Name},
-  year={2025}
+@misc{dong2025mscbenchrigorousbenchmarkmultiserver,
+      title={MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration}, 
+      author={Jia-Kai Dong and I-Wei Huang and Chun-Tin Wu and Yi-Tien Tsai},
+      year={2025},
+      eprint={2510.19423},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2510.19423}, 
 }
 ```
 
