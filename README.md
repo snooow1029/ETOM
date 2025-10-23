@@ -2,7 +2,13 @@
 
 A comprehensive benchmark framework for evaluating tool selection and orchestration capabilities across multiple complexity levels.
 
+📄 **Paper**: [MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration](https://arxiv.org/abs/2510.19423)
+
 ## Overview
+
+![MSC-Bench 5-Level Curriculum](asset/5_level_curriculum.png)
+
+*Figure: MSC-Bench's five-level complexity curriculum showing the progression from single tool selection to advanced dependency graphs.*
 
 MSC-Bench provides a standardized platform for both generating and evaluating how well different orchestration systems can select and sequence tools to complete complex tasks. The benchmark supports five levels of complexity, from simple single-tool selection to complex multi-tool dependency graphs with conditional logic.
 
@@ -16,6 +22,12 @@ MSC-Bench provides a standardized platform for both generating and evaluating ho
 - **Parallel Processing**: Configurable batch processing and multi-threading for efficient evaluation
 - **Checkpoint System**: Resume interrupted evaluations and generation processes with automatic progress saving
 - **Extensible Architecture**: Easy addition of new orchestrators, evaluation levels, and generation strategies
+
+## Framework Overview
+
+![MSC-Bench Framework Overview](asset/MSC_bench_overview.png)
+
+*Figure: MSC-Bench framework architecture highlighting our novel contributions and evaluation methodology compared to existing approaches.*
 
 ## Project Structure
 
