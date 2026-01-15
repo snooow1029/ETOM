@@ -78,8 +78,8 @@ MSC_Bench/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/snooow1029/MSC_Bench.git
-cd MSC_Bench
+git clone https://github.com/snooow1029/ETOM.git
+cd ETOM
 ```
 
 2. Install dependencies:
