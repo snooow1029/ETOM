@@ -1,16 +1,16 @@
-# MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration
+# ETOM: A Five-Level Benchmark for Evaluating Tool Orchestration within the MCP Ecosystem
 
 A comprehensive benchmark framework for evaluating tool selection and orchestration capabilities across multiple complexity levels.
 
-📄 **Paper**: [MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration](https://arxiv.org/abs/2510.19423)
+📄 **Paper**: [ETOM: A Five-Level Benchmark for Evaluating Tool Orchestration within the MCP Ecosystem](https://arxiv.org/abs/2510.19423)
 
 ## Overview
 
-![MSC-Bench 5-Level Curriculum](asset/5_level_curriculum.png)
+![ETOM 5-Level Curriculum](asset/5_level_curriculum.png)
 
-*Figure: MSC-Bench's five-level complexity curriculum showing the progression from single tool selection to advanced dependency graphs.*
+*Figure: ETOM's five-level complexity curriculum showing the progression from single tool selection to advanced dependency graphs.*
 
-MSC-Bench provides a standardized platform for both generating and evaluating how well different orchestration systems can select and sequence tools to complete complex tasks. The benchmark supports five levels of complexity, from simple single-tool selection to complex multi-tool dependency graphs with conditional logic.
+ETOM provides a standardized platform for both generating and evaluating how well different orchestration systems can select and sequence tools to complete complex tasks. The benchmark supports five levels of complexity, from simple single-tool selection to complex multi-tool dependency graphs with conditional logic.
 
 ## Key Features
 
@@ -25,9 +25,9 @@ MSC-Bench provides a standardized platform for both generating and evaluating ho
 
 ## Framework Overview
 
-![MSC-Bench Framework Overview](asset/MSC_bench_overview.png)
+![ETOM Framework Overview](asset/MSC_bench_overview.png)
 
-*Figure: MSC-Bench framework architecture highlighting our novel contributions and evaluation methodology compared to existing approaches.*
+*Figure: ETOM framework architecture highlighting our novel contributions and evaluation methodology compared to existing approaches.*
 
 ## Project Structure
 
@@ -101,7 +101,7 @@ python generate_embeddings.py
 
 ## Dataset Generation Pipeline
 
-MSC-Bench includes a comprehensive pipeline for generating benchmark queries at different complexity levels:
+ETOM includes a comprehensive pipeline for generating benchmark queries at different complexity levels:
 
 ### Level 1 & 2: Single Tool and Tool Sets
 ```bash
@@ -531,7 +531,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 ## Citation
 
-If you use MSC-Bench in your research, please cite:
+If you use ETOM in your research, please cite:
 
 ```bibtex
 @misc{dong2025mscbenchrigorousbenchmarkmultiserver,
