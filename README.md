@@ -32,7 +32,7 @@ ETOM provides a standardized platform for both generating and evaluating how wel
 ## Project Structure
 
 ```
-MSC_Bench/
+ETOM/
 ├── data/                         # Data and query files
 │   ├── queries/                  # Evaluation queries by level
 │   │   ├── level_1.json          # Single tool selection queries
@@ -534,10 +534,10 @@ logging.getLogger().setLevel(logging.DEBUG)
 If you use ETOM in your research, please cite:
 
 ```bibtex
-@misc{dong2025mscbenchrigorousbenchmarkmultiserver,
-      title={MSC-Bench: A Rigorous Benchmark for Multi-Server Tool Orchestration}, 
+@misc{dong2026etomfivelevelbenchmarkevaluating,
+      title={ETOM: A Five-Level Benchmark for Evaluating Tool Orchestration within the MCP Ecosystem}, 
       author={Jia-Kai Dong and I-Wei Huang and Chun-Tin Wu and Yi-Tien Tsai},
-      year={2025},
+      year={2026},
       eprint={2510.19423},
       archivePrefix={arXiv},
       primaryClass={cs.AI},
@@ -555,4 +555,4 @@ Contributions are welcome! Please read the contributing guidelines and submit pu
 
 ## Contact
 
-For questions or issues, please open an issue on the project repository or contact the maintainers.
+For questions or issues, please open an issue on the project repository or contact the maintainers through b11901067@ntu.edu.tw.
